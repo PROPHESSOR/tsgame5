@@ -117,7 +117,8 @@ export default abstract class Component extends EventEmitter
     } else if (this.state === eState.hover) {
       this.setState(eState.normal);
     }
-    return true;
+
+    return false;
   }
 
   get stateTheme(): iThemeTextBlockProps {
