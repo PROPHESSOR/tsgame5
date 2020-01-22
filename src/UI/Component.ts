@@ -91,9 +91,9 @@ export default abstract class Component extends EventEmitter
   onClick(position: Vec2): boolean {
     if (!this.hitbox) return false;
     if (!this.abilities.click) return false;
-    if (this.params.disabled) return true; // Catch the click
 
     if (this.hitbox.checkInside(position)) {
+      if (this.params.disabled) return true; // Catch the click
       this.emit('click');
       return true;
     }
@@ -104,10 +104,14 @@ export default abstract class Component extends EventEmitter
   onMouseMove(position: Vec2): boolean {
     if (!this.hitbox) return false;
     if (!this.abilities.hover) return false;
-    if (this.params.disabled) return true;
 
     if (this.hitbox.checkInside(position)) {
-      if (this.state === eState.hover) return true;
+      if (
+        this.state === eState.hover ||
+        this.state === eState.active ||
+        this.state === eState.disabled
+      )
+        return true;
       this.setState(eState.hover);
       this.emit('hover');
     } else if (this.state === eState.hover) {
