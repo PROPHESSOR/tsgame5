@@ -88,8 +88,6 @@ export default abstract class Component extends EventEmitter
     this.state = eState.normal;
   }
 
-  // TODO: Unify
-
   onClick(position: Vec2): boolean {
     if (!this.hitbox) return false;
     if (!this.abilities.click) return false;
@@ -106,9 +104,10 @@ export default abstract class Component extends EventEmitter
   onMouseMove(position: Vec2): boolean {
     if (!this.hitbox) return false;
     if (!this.abilities.hover) return false;
-    if (this.disabled) return true;
+    if (this.params.disabled) return true;
 
     if (this.hitbox.checkInside(position)) {
+      if (this.state === eState.hover) return true;
       this.setState(eState.hover);
       this.emit('hover');
     } else if (this.state === eState.hover) {

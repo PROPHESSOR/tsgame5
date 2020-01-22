@@ -45,7 +45,8 @@ export default class Button extends Component {
     theme: iThemeComponentProps = Object.assign({}, DefaultTheme.Button),
   ) {
     super(ui, position, size, new Box(position, size), params, theme);
-    this.on('hover', console.log);
+    this.abilities.hover = true;
+    this.on('hover', () => console.log('btn.on hover'));
   }
 
   render() {

@@ -22,7 +22,7 @@ export default class UI {
     this.layers = [];
     this.layers.push(new TileSelector(this)); // FIXME:
 
-    window.addEventListener('click', event =>
+    window.addEventListener('mousemove', event =>
       this.onMouseMove(new Vec2(event.offsetX, event.offsetY)),
     );
   }
