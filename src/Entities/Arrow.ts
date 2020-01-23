@@ -97,7 +97,7 @@ export default class Arrow extends Entity {
     this.updateHitbox();
 
     // Check for obstacle collision
-    for (const cell of this.board.cells) {
+    for (const cell of this.game.board.cells) {
       const { hitbox } = cell;
 
       if (!hitbox) continue;
@@ -154,10 +154,10 @@ export default class Arrow extends Entity {
     if (
       (this.direction === Direction.LEFT && this.hitbox.right < 0) ||
       (this.direction === Direction.DOWN &&
-        this.hitbox.top >= this.board.bottom) ||
+        this.hitbox.top >= this.game.board.bottom) ||
       (this.direction === Direction.UP && this.hitbox.bottom < 0) ||
       (this.direction === Direction.RIGHT &&
-        this.hitbox.left >= this.board.right)
+        this.hitbox.left >= this.game.board.right)
     )
       this.destroy();
   }

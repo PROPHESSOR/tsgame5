@@ -22,7 +22,6 @@ export interface iEntity {
 export default abstract class Entity extends EventEmitter
   implements iEntity, Box {
   protected game: Game;
-  protected board: Board;
   protected ctx: CanvasRenderingContext2D;
 
   position: Vec2; // Screen position in px
@@ -32,7 +31,6 @@ export default abstract class Entity extends EventEmitter
   constructor(game, position: Vec2 = new Vec2(), size: Vec2 = new Vec2()) {
     super();
     this.game = game;
-    this.board = game.board;
     this.ctx = game.ctx;
     this.position = position;
     this.size = size;
@@ -97,7 +95,7 @@ export default abstract class Entity extends EventEmitter
   }
 
   destroy(): void {
-    this.emit('destroy');
+    this.emit('destroy', this);
   }
 
   abstract tick(tickno);

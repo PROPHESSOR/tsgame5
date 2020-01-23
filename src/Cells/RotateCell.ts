@@ -1,7 +1,6 @@
 import Cell from '../Cell';
 import { Vec2 } from '../Math';
 import Game from '../Game';
-import Board from '../Board';
 import Arrow from '../Entities/Arrow';
 import { rotateCoordsAroundThePoint } from '../Utils';
 import Box from '../Box';
@@ -28,13 +27,12 @@ function generateRotateCellHitbox(cellHitbox: Box) {
 export default abstract class RotateCell extends Cell {
   protected abstract rotateDirection: RotateDirection;
 
-  constructor(game: Game, board: Board, position: Vec2) {
+  constructor(game: Game, position: Vec2) {
     super(
       game,
-      board,
       position,
       new Vec2(1, 1),
-      generateRotateCellHitbox(Cell.generateCellBox(board, position)),
+      generateRotateCellHitbox(Cell.generateCellBox(game.board, position)),
     );
   }
 
@@ -42,7 +40,7 @@ export default abstract class RotateCell extends Cell {
     return rotateCoordsAroundThePoint(
       coords,
       0,
-      this.coords.plus(this.board.cellsize.divide(2)),
+      this.coords.plus(this.game.board.cellsize.divide(2)),
     );
   }
 
@@ -51,8 +49,8 @@ export default abstract class RotateCell extends Cell {
   }
 
   render() {
-    const { board, game, coords } = this;
-    const { ctx } = game;
+    const { game, coords } = this;
+    const { ctx, board } = game;
     const { cellsize } = board;
 
     ctx.strokeStyle = 'red';

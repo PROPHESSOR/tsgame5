@@ -7,7 +7,14 @@ import Arrow from './Entities/Arrow';
 import Box from './Box';
 import { random } from './Utils';
 
-abstract class HitboxEntity extends Entity {
+export interface iCellBrush {
+  text: string;
+  brushName: string;
+  brushClass: any;
+}
+
+// TODO: Inherit placeful from it
+export abstract class HitboxEntity extends Entity {
   hitbox: Box;
 
   constructor(game: Game, position: Vec2, size: Vec2, hitbox: Box) {
@@ -28,30 +35,26 @@ export default abstract class Cell extends HitboxEntity {
    * @param size - Cell size on board
    * @param hitbox
    */
-  constructor(
-    game: Game,
-    board: Board,
-    position: Vec2,
-    size: Vec2,
-    hitbox: Box,
-  ) {
+  constructor(game: Game, position: Vec2, size: Vec2, hitbox: Box) {
     super(
       game,
-      Cell.positionToScreenPosition(board, position),
-      Cell.sizeToBoardSize(board, size),
+      Cell.positionToScreenPosition(game.board, position),
+      Cell.sizeToBoardSize(game.board, size),
       hitbox,
     );
-    this.board = board; // TODO: Why is it an error if I remove this line? :/
     this.boardposition = position;
     this.boardsize = size;
   }
 
   get coords(): Vec2 {
-    return Cell.positionToScreenPosition(this.board, this.boardposition);
+    return Cell.positionToScreenPosition(
+      this.game.board,
+      this.boardposition,
+    );
   }
 
   get screenSize(): Vec2 {
-    return Cell.sizeToBoardSize(this.board, this.boardsize);
+    return Cell.sizeToBoardSize(this.game.board, this.boardsize);
   }
 
   processArrow(arrow: Arrow): void {

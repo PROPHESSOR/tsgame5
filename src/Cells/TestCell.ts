@@ -1,23 +1,21 @@
 import { Vec2 } from '../Math';
 
 import Game from '../Game';
-import Board from '../Board';
-import Cell from '../Cell';
+import Cell, { iCellBrush } from '../Cell';
 
 export default class TestCell extends Cell {
-  constructor(game: Game, board: Board, position: Vec2) {
+  constructor(game: Game, position: Vec2) {
     super(
       game,
-      board,
       position,
       new Vec2(1, 1),
-      Cell.generateCellBox(board, position),
+      Cell.generateCellBox(game.board, position),
     );
   }
 
   render() {
-    const { board, game, coords } = this;
-    const { ctx } = game;
+    const { game, coords } = this;
+    const { ctx, board } = game;
     const { cellsize } = board;
 
     ctx.strokeStyle = 'red';
@@ -36,3 +34,9 @@ export default class TestCell extends Cell {
     // TODO:
   }
 }
+
+export const TestCellBrush: iCellBrush = {
+  text: '\\',
+  brushName: 'TestCell',
+  brushClass: TestCell,
+};

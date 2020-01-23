@@ -2,6 +2,7 @@ import RotateCell, { RotateDirection } from './RotateCell';
 import Arrow from '../Entities/Arrow';
 import { Direction } from '../Entity';
 import { Vec2 } from '../Math';
+import { iCellBrush } from '../Cell';
 
 export default class RotateCellClockwise extends RotateCell {
   protected rotateDirection: RotateDirection = RotateDirection.CLOCKWISE;
@@ -27,3 +28,9 @@ export default class RotateCellClockwise extends RotateCell {
     arrow.position = Vec2.from(this.position);
   }
 }
+
+export const RotateCellClockwiseBrush: iCellBrush = {
+  text: '/',
+  brushName: 'RotateCellClockwise',
+  brushClass: RotateCellClockwise,
+};

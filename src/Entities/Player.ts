@@ -37,7 +37,8 @@ export default class Player extends Entity {
   }
 
   get screenposition() {
-    const { board, position } = this;
+    const { position } = this;
+    const { board } = this.game;
 
     return new Vec2(
       board.right + PLAYER_OFFSET_IN_BOARD,
@@ -60,15 +61,15 @@ export default class Player extends Entity {
               this.screenposition.x,
               this.screenposition.y -
                 PLAYER_OFFSET_IN_BOARD -
-                this.size.y / 2 +
-                2,
+                this.size.y / 2 -
+                this.game.board.cellsize.y / 3,
             ),
           );
           this.arrow.on('destroy', () => (this.arrow = null));
         }
         break;
       case 115: // S
-        if (this.position.y < this.board.boardsize.y - 1)
+        if (this.position.y < this.game.board.boardsize.y - 1)
           this.position.y++;
         break;
       case 100: // D

@@ -45,7 +45,7 @@ export default class Board extends Entity {
     this.cells = [];
     this.brush = 'EmptyCell';
 
-    this.todoSpawnCells();
+    // this.todoSpawnCells();
   }
 
   changeBrush(brushName: string) {
@@ -56,26 +56,15 @@ export default class Board extends Entity {
   }
 
   todoSpawnCells() {
-    console.log(this.size);
     for (let col = 0; col < this.boardsize.x; col++) {
       for (let row = 0; row < this.boardsize.y; row++) {
-        this.cells.push(
-          new EmptyCell(this.game, this, new Vec2(row, col)),
-        );
+        this.cells.push(new EmptyCell(this.game, new Vec2(row, col)));
       }
     }
 
-    this.cells[11] = new RotateCellClockwise(
-      this.game,
-      this,
-      new Vec2(1, 1),
-    );
+    this.cells[11] = new RotateCellClockwise(this.game, new Vec2(1, 1));
 
-    this.cells[31] = new RotateCellClockwise(
-      this.game,
-      this,
-      new Vec2(1, 3),
-    );
+    this.cells[31] = new RotateCellClockwise(this.game, new Vec2(1, 3));
   }
 
   onClick(position: Vec2): boolean {
@@ -86,7 +75,6 @@ export default class Board extends Entity {
     const idx = this.getCellIndexByScreenCoords(position);
     this.cells[idx] = new Cells[this.brush](
       this.game,
-      this,
       this.getCellPositionByCellIndex(idx),
     );
     return true;

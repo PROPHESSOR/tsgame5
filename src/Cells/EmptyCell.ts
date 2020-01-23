@@ -1,17 +1,16 @@
 import { Vec2 } from '../Math';
 
 import Game from '../Game';
-import Board from '../Board';
-import Cell from '../Cell';
+import Cell, { iCellBrush } from '../Cell';
 
 export default class EmptyCell extends Cell {
-  constructor(game: Game, board: Board, position: Vec2) {
-    super(game, board, position, new Vec2(1, 1), null);
+  constructor(game: Game, position: Vec2) {
+    super(game, position, new Vec2(1, 1), null);
   }
 
   render() {
-    const { board, game, coords } = this;
-    const { ctx } = game;
+    const { game, coords } = this;
+    const { ctx, board } = game;
     const { cellsize } = board;
 
     ctx.strokeStyle = 'red';
@@ -22,3 +21,9 @@ export default class EmptyCell extends Cell {
     // TODO:
   }
 }
+
+export const EmptyCellBrush: iCellBrush = {
+  text: '',
+  brushName: 'EmptyCell',
+  brushClass: EmptyCell,
+};

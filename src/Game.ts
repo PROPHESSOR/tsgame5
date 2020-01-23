@@ -6,6 +6,7 @@ import Entity from './Entity';
 import Placeful from './Entities/Placeful';
 import Player from './Entities/Player';
 import UI from './UI';
+import TestLevel from './Levels/TestLevel';
 
 const BOARD_OFFSET: number = 20;
 const BOARD_PLAYER_AREA: number = 50;
@@ -19,6 +20,7 @@ export default class Game {
   entities: Array<Entity>;
   player: Player;
   tickno: number = 0;
+  brushes: Array<[string, number]>;
 
   constructor({
     window_size = new Vec2(500 - BOARD_PLAYER_AREA, 400) as Vec2,
@@ -51,9 +53,11 @@ export default class Game {
       }),
     );
 
+    this.brushes = [];
+
     this.ui = new UI(this, uiCanvas, window_size);
 
-    this.render();
+    // this.render();
 
     window.addEventListener('click', event =>
       this.onClick(new Vec2(event.offsetX, event.offsetY)),
