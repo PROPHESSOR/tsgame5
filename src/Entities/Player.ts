@@ -7,6 +7,7 @@ import Arrow from './Arrow';
 
 const PLAYER_OFFSET_IN_BOARD: number = 10;
 const PLAYER_SIZE: Vec2 = new Vec2(10, 10);
+const ARROW_OFFSET: number = 42;
 
 export default class Player extends Entity {
   color: string;
@@ -57,7 +58,7 @@ export default class Player extends Entity {
           this.arrow = new Arrow(
             this.game,
             new Vec2(
-              this.screenposition.x,
+              this.screenposition.x + ARROW_OFFSET,
               this.screenposition.y -
                 PLAYER_OFFSET_IN_BOARD -
                 this.size.y / 2 -
@@ -81,13 +82,26 @@ export default class Player extends Entity {
   }
 
   render() {
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(
-      this.screenposition.x,
-      this.screenposition.y,
-      this.size.x,
-      this.size.y,
-    );
+    const { ctx, size, screenposition } = this;
+    ctx.fillStyle = this.color;
+    // ctx.fillRect(screenposition.x, screenposition.y, size.x, size.y);
+    ctx.strokeStyle = this.color;
+
+    ctx.beginPath();
+    // Horizontal line
+    ctx.moveTo(screenposition.x, screenposition.y + size.y / 2);
+    ctx.lineTo(screenposition.x + size.x, screenposition.y + size.y / 2);
+
+    // Top line
+    ctx.moveTo(screenposition.x, screenposition.y + size.y / 2);
+    ctx.lineTo(screenposition.x + size.x / 2, screenposition.y);
+
+    // Bottom line
+    ctx.moveTo(screenposition.x, screenposition.y + size.y / 2);
+    ctx.lineTo(screenposition.x + size.x / 2, screenposition.y + size.y);
+
+    ctx.stroke();
+
     if (this.arrow) this.arrow.render();
   }
 }
