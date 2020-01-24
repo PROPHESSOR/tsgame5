@@ -93,13 +93,22 @@ export default class Game {
   }
 
   spawnArrow(cellY: number) {
-    // TODO: Check board size
+    if (this.arrow) return;
     const { board } = this;
+    if (cellY < 0 || cellY >= board.boardsize.y)
+      throw new Error(
+        `[Game::spawnArrow]: cellY must be >= 0 and < ${
+          board.boardsize.y
+        }`,
+      );
     this.arrow = new Arrow(
       this,
       new Vec2(this.window_size.x, board.top + cellY * board.cellsize.y),
     );
-    this.arrow.on('destroy', () => (this.arrow = null));
+    this.arrow.on('destroy', () => {
+      this.arrow = null;
+      this.respawn();
+    });
   }
 
   onClick(position: Vec2): boolean {

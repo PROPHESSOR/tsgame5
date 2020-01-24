@@ -107,6 +107,7 @@ export default abstract class Level extends aLevel {
    * Respawns all entities and destroyable cells
    */
   restart() {
-    this.loadEntities();
+    if (this.game.entities.length !== this.entities.length)
+      this.loadEntities();
   }
 }
