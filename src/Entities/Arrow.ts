@@ -38,37 +38,37 @@ export default class Arrow extends Entity {
       case Direction.UP:
         this.hitbox = new Box(
           new Vec2(
-            this.position.x + this.size.x / 2 - this.size.x / 8,
+            this.position.x + this.size.x / 2 - this.size.x / 16,
             this.position.y,
           ),
-          new Vec2(this.size.x / 4, ARROW_HITBOX),
+          new Vec2(this.size.x / 8, ARROW_HITBOX),
         );
         break;
       case Direction.DOWN:
         this.hitbox = new Box(
           new Vec2(
-            this.position.x + this.size.x / 2 - this.size.x / 8,
+            this.position.x + this.size.x / 2 - this.size.x / 16,
             this.position.y + this.size.y - ARROW_HITBOX,
           ),
-          new Vec2(this.size.x / 4, ARROW_HITBOX),
+          new Vec2(this.size.x / 8, ARROW_HITBOX),
         );
         break;
       case Direction.LEFT:
         this.hitbox = new Box(
           new Vec2(
             this.position.x,
-            this.position.y + this.size.y / 2 - this.size.y / 8,
+            this.position.y + this.size.y / 2 - this.size.y / 16,
           ),
-          new Vec2(ARROW_HITBOX, this.size.y / 4),
+          new Vec2(ARROW_HITBOX, this.size.y / 8),
         );
         break;
       case Direction.RIGHT:
         this.hitbox = new Box(
           new Vec2(
             this.position.x + this.size.x - ARROW_HITBOX,
-            this.position.y + this.size.y / 2 - this.size.y / 8,
+            this.position.y + this.size.y / 2 - this.size.y / 16,
           ),
-          new Vec2(ARROW_HITBOX, this.size.y / 4),
+          new Vec2(ARROW_HITBOX, this.size.y / 8),
         );
         break;
       default:
@@ -115,6 +115,7 @@ export default class Arrow extends Entity {
         hit = true;
 
       if (
+        !hit &&
         (this.direction === Direction.UP ||
           this.direction === Direction.DOWN) &&
         this.hitbox.top <= hitbox.bottom &&
@@ -128,9 +129,10 @@ export default class Arrow extends Entity {
         if (cell instanceof RotateCell) {
           console.log(`Process the arrow with`, cell);
           cell.processArrow(this);
+          this.updateHitbox();
         } else {
-          console.log(`Collision with`, hitbox);
-          this.destroy();
+          console.log(`Collision with`, cell);
+          return this.destroy();
         }
       }
     }
@@ -159,7 +161,7 @@ export default class Arrow extends Entity {
       (this.direction === Direction.RIGHT &&
         this.hitbox.left >= this.game.board.right)
     )
-      this.destroy();
+      return this.destroy();
   }
 
   /**

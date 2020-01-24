@@ -113,8 +113,8 @@ export default class Board extends Entity {
     //     );
     //   }
     // }
-    this.cells.forEach(entity => {
-      entity.render();
+    this.cells.forEach(cell => {
+      cell.render();
     });
   }
 
