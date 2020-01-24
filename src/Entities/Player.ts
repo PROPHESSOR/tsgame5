@@ -3,16 +3,13 @@ import { Vec2 } from '../Math';
 import Entity from '../Entity';
 import Game from '../Game';
 import Board from '../Board';
-import Arrow from './Arrow';
 
 const PLAYER_OFFSET_IN_BOARD: number = 10;
 const PLAYER_SIZE: Vec2 = new Vec2(10, 10);
-const ARROW_OFFSET: number = 42;
 
 export default class Player extends Entity {
   color: string;
   board: Board;
-  arrow: Arrow;
 
   /**
    *
@@ -29,7 +26,6 @@ export default class Player extends Entity {
       PLAYER_SIZE,
     );
     this.color = 'yellow';
-    this.arrow = null;
 
     window.addEventListener('keypress', event =>
       this.onKeyDown(event.keyCode),
@@ -54,19 +50,7 @@ export default class Player extends Entity {
         if (this.position.y > 0) this.position.y--;
         break;
       case 97: // A
-        if (!this.arrow) {
-          this.arrow = new Arrow(
-            this.game,
-            new Vec2(
-              this.screenposition.x + ARROW_OFFSET,
-              this.screenposition.y -
-                PLAYER_OFFSET_IN_BOARD -
-                this.size.y / 2 -
-                this.game.board.cellsize.y / 3,
-            ),
-          );
-          this.arrow.on('destroy', () => (this.arrow = null));
-        }
+        this.game.spawnArrow(this.position.y);
         break;
       case 115: // S
         if (this.position.y < this.game.board.boardsize.y - 1)
@@ -78,7 +62,7 @@ export default class Player extends Entity {
   }
 
   tick() {
-    if (this.arrow) this.arrow.tick();
+    //
   }
 
   render() {
@@ -102,6 +86,6 @@ export default class Player extends Entity {
 
     ctx.stroke();
 
-    if (this.arrow) this.arrow.render();
+    //
   }
 }

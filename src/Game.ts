@@ -7,6 +7,7 @@ import Placeful from './Entities/Placeful';
 import Player from './Entities/Player';
 import UI from './UI';
 import Level from './Level';
+import Arrow from './Entities/Arrow';
 
 const BOARD_OFFSET: number = 20;
 const BOARD_PLAYER_AREA: number = 50;
@@ -22,6 +23,7 @@ export default class Game {
   tickno: number = 0;
   brushes: Array<[string, number]>;
   level: Level = null;
+  arrow: Arrow;
 
   constructor({
     window_size = new Vec2(500 - BOARD_PLAYER_AREA, 400) as Vec2,
@@ -70,6 +72,36 @@ export default class Game {
     requestAnimationFrame(() => this.tick());
   }
 
+  /**
+   * Respawn entities and destroyable cells
+   */
+  respawn() {
+    if (!this.level)
+      throw new Error('[Game::respawn]: No level is loaded');
+
+    this.level.restart();
+  }
+
+  /**
+   * Fully restart current level
+   */
+  restart() {
+    if (!this.level)
+      throw new Error('[Game::respawn]: No level is loaded');
+
+    this.level.load();
+  }
+
+  spawnArrow(cellY: number) {
+    // TODO: Check board size
+    const { board } = this;
+    this.arrow = new Arrow(
+      this,
+      new Vec2(this.window_size.x, board.top + cellY * board.cellsize.y),
+    );
+    this.arrow.on('destroy', () => (this.arrow = null));
+  }
+
   onClick(position: Vec2): boolean {
     if (this.ui.onClick(position)) return true;
     if (this.board.onClick(position)) return true;
@@ -81,6 +113,7 @@ export default class Game {
     this.tickno++;
     this.entities.forEach(entity => entity.tick(this.tickno));
     this.player.tick();
+    if (this.arrow) this.arrow.tick();
     this.ctx.save();
     this.render();
     this.ctx.restore();
@@ -95,6 +128,8 @@ export default class Game {
     this.entities.forEach(entity => entity.render());
 
     this.player.render();
+
+    if (this.arrow) this.arrow.render();
 
     this.ui.render();
   }
