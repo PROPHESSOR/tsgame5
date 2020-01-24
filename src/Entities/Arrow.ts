@@ -187,12 +187,9 @@ export default class Arrow extends Entity {
         throw new Error(`Unknown direction ${this.direction}`);
     }
 
-    const centerPoint = new Vec2(
-      this.position.x + this.size.x / 2,
-      this.position.y + this.size.y / 2,
-    );
+    const centerPoint = this.position.plus(this.size.divide(2));
 
-    return rotateCoordsAroundThePoint(coord, deg, centerPoint);
+    return coord.rotateAroundThePoint(deg, centerPoint);
   }
 
   render() {

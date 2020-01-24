@@ -76,29 +76,3 @@ export function generateRotationMatrix2D(deg: number): Matrix2 {
     ...[Math.sin(rad), Math.cos(rad)],
   ]);
 }
-
-export function rotateCoords(coords: Vec2, deg: number): Vec2 {
-  const rotationMatrix = generateRotationMatrix2D(deg);
-
-  return rotationMatrix.transform(coords);
-}
-
-export function rotateCoordsAroundThePoint(
-  coords: Vec2,
-  deg: number,
-  point: Vec2,
-): Vec2 {
-  // Move the origin of coordinates to the (0, 0)
-  const zeroCoords = new Vec2(coords.x - point.x, coords.y - point.y);
-
-  // Rotate around the (0, 0)
-  const rotatedCoords = rotateCoords(zeroCoords, deg);
-
-  // Move back the origin of coordinates to the point
-  const originCoords = new Vec2(
-    rotatedCoords.x + point.x,
-    rotatedCoords.y + point.y,
-  );
-
-  return originCoords;
-}

@@ -1,3 +1,5 @@
+import { generateRotationMatrix2D } from './Utils';
+
 export interface Vector {
   constructor: Function;
   map: (
@@ -60,6 +62,21 @@ export class Vec2 implements Vector {
     }
     if (vector === 0) throw new Error('Divide by zero error!');
     return this.map(val => val / vector);
+  }
+
+  rotate(deg: number): Vec2 {
+    const rotationMatrix = generateRotationMatrix2D(deg);
+
+    return rotationMatrix.transform(this);
+  }
+
+  rotateAroundThePoint(deg: number, point: Vec2): Vec2 {
+    // Move the origin of coordinates to the (0, 0)
+    // Rotate around the (0, 0)
+    // Move back the origin of coordinates to the point
+    return this.minus(point)
+      .rotate(deg)
+      .plus(point);
   }
 
   *[Symbol.iterator]() {
