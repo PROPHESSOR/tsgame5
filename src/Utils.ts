@@ -1,4 +1,4 @@
-import { Vec2, Matrix2, deg2rad } from './Math';
+import { Matrix2, deg2rad } from './Math';
 
 export class Switch {
   cases: Array<String>;
@@ -56,12 +56,6 @@ export class EventEmitter {
       listener.apply(this, args);
     });
   }
-}
-
-export function snapToGrid(position: Vec2, gridsize: Vec2): Vec2 {
-  return position
-    .map((val, idx) => Math.floor(val / gridsize[idx]))
-    .map((val, idx) => val * gridsize[idx]);
 }
 
 export function random(min: number, max: number): number {

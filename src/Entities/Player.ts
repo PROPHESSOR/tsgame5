@@ -1,5 +1,4 @@
 import { Vec2 } from '../Math';
-// import { snapToGrid } from '../Utils'; // TODO:
 
 import Entity from '../Entity';
 import Game from '../Game';

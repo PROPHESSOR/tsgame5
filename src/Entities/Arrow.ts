@@ -1,5 +1,5 @@
 import { Vec2 } from '../Math';
-import { rotateCoordsAroundThePoint, random } from '../Utils';
+import { random } from '../Utils';
 
 import Game from '../Game';
 import Entity, { Direction } from '../Entity';
