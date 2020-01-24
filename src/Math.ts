@@ -89,6 +89,17 @@ export class Vec2 implements Vector {
       .plus(point);
   }
 
+  /**
+   * Rounds to floor current vector coordinates to snap the grid
+   * @param gridsize Grid cell size
+   * @returns new vector
+   */
+  snapToGrid(gridsize: Vec2): Vec2 {
+    return this.map((val, idx) => Math.floor(val / gridsize[idx])).map(
+      (val, idx) => val * gridsize[idx],
+    );
+  }
+
   *[Symbol.iterator]() {
     yield this.x;
     yield this.y;
