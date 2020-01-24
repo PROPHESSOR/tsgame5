@@ -6,7 +6,7 @@ import Entity from './Entity';
 import Placeful from './Entities/Placeful';
 import Player from './Entities/Player';
 import UI from './UI';
-import TestLevel from './Levels/TestLevel';
+import Level from './Level';
 
 const BOARD_OFFSET: number = 20;
 const BOARD_PLAYER_AREA: number = 50;
@@ -21,6 +21,7 @@ export default class Game {
   player: Player;
   tickno: number = 0;
   brushes: Array<[string, number]>;
+  level: Level = null;
 
   constructor({
     window_size = new Vec2(500 - BOARD_PLAYER_AREA, 400) as Vec2,

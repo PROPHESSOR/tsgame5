@@ -4,8 +4,13 @@ import Game from './Game';
 import { Vec2 } from './Math';
 import Board from './Board';
 
+/**
+ * @event restart TODO:
+ * @event loaded TODO:
+ */
 abstract class aLevel extends EventEmitter {
   abstract load();
+  abstract restart();
 }
 
 export default abstract class Level extends aLevel {
@@ -35,15 +40,14 @@ export default abstract class Level extends aLevel {
     if (this.cells.length <= 4)
       throw new Error('Level cells map must be greater than 2x2');
 
-    // Validate player position
+    // TODO: Validate player position
   }
 
   private static checkForSquareNumber(number: number): boolean {
     return number > 0 && Math.sqrt(number) % 1 === 0;
   }
 
-  load() {
-    // Load map
+  private loadMap() {
     const mapSize = Math.floor(Math.sqrt(this.cells.length));
 
     this.game.board = new Board(this.game, {
@@ -61,8 +65,9 @@ export default abstract class Level extends aLevel {
         ),
       ),
     );
+  }
 
-    // Load entities
+  private loadEntities() {
     this.game.entities = [];
     for (const entitydef of this.entities) {
       this.game.entities.push(
@@ -75,11 +80,33 @@ export default abstract class Level extends aLevel {
         this.game.entities = this.game.entities.filter(e => e !== entity);
       }),
     );
+  }
 
-    // Load player
+  private loadPlayer() {
     this.game.player.position.y = this.playerPosition;
+  }
 
-    // Load brushes
+  private loadBrushes() {
     this.game.brushes = [...this.brushes];
+  }
+
+  load() {
+    this.game.level = this;
+
+    this.loadMap();
+
+    this.loadEntities();
+
+    this.loadPlayer();
+
+    this.loadBrushes();
+  }
+
+  /**
+   * On Arrow destroy
+   * Respawns all entities and destroyable cells
+   */
+  restart() {
+    this.loadEntities();
   }
 }
