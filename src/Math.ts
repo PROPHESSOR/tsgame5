@@ -64,12 +64,22 @@ export class Vec2 implements Vector {
     return this.map(val => val / vector);
   }
 
+  /**
+   * Rotates current vector to `deg` degrees around the origin (0, 0)
+   * @param deg Degrees to rotate
+   * @returns {Vec2} new vector
+   */
   rotate(deg: number): Vec2 {
     const rotationMatrix = generateRotationMatrix2D(deg);
 
     return rotationMatrix.transform(this);
   }
 
+  /**
+   * Rotates current vector to `deg` degrees around the `point`
+   * @param deg Degrees to rotate
+   * @param point Point to rotate around it
+   */
   rotateAroundThePoint(deg: number, point: Vec2): Vec2 {
     // Move the origin of coordinates to the (0, 0)
     // Rotate around the (0, 0)
