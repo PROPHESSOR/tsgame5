@@ -8,11 +8,23 @@ import Player from './Entities/Player';
 import UI from './UI';
 import Level from './Level';
 import Arrow from './Entities/Arrow';
+import { EventEmitter } from './Utils';
 
 const BOARD_OFFSET: number = 20;
 const BOARD_PLAYER_AREA: number = 50;
 
-export default class Game {
+/**
+ * Events:
+ * @event respawn
+ * @event restart
+ * @event spawnArrow
+ * @event level_loaded Level
+ * @event brush_changed
+ * @event brush_placed { index: number, brushName: string, TODO: cellName: string }
+ * TODO: @event brush_removed { index: number, brushName: string, cellName: string }
+ */
+
+export default class Game extends EventEmitter {
   window_size: Vec2;
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
@@ -21,7 +33,7 @@ export default class Game {
   entities: Array<Entity>;
   player: Player;
   tickno: number = 0;
-  brushes: Array<[string, number]>;
+  brushes: [string, number][];
   level: Level = null;
   arrow: Arrow;
 
@@ -30,6 +42,7 @@ export default class Game {
     gameCanvas = document.querySelector('#game') as HTMLCanvasElement,
     uiCanvas = document.querySelector('#ui') as HTMLCanvasElement,
   } = {}) {
+    super();
     this.window_size = window_size;
     this.canvas = gameCanvas;
     [gameCanvas.width, gameCanvas.height] = [window_size.x, window_size.y];
@@ -65,6 +78,13 @@ export default class Game {
     window.addEventListener('click', event =>
       this.onClick(new Vec2(event.offsetX, event.offsetY)),
     );
+
+    this.on('brush_placed', ({ index, brushName }) => {
+      const [placedBrush] = this.brushes.filter(
+        brushdef => brushdef[0] === brushName,
+      );
+      if (placedBrush[1] !== -1 && placedBrush[1] !== 0) placedBrush[1]--;
+    });
   }
 
   start() {
@@ -80,6 +100,7 @@ export default class Game {
       throw new Error('[Game::respawn]: No level is loaded');
 
     this.level.respawn();
+    this.emit('respawn');
   }
 
   /**
@@ -90,6 +111,7 @@ export default class Game {
       throw new Error('[Game::respawn]: No level is loaded');
 
     this.level.load();
+    this.emit('restart');
   }
 
   spawnArrow(cellY: number) {
@@ -109,6 +131,7 @@ export default class Game {
       this.arrow = null;
       this.respawn();
     });
+    this.emit('spawnArrow');
   }
 
   onClick(position: Vec2): boolean {

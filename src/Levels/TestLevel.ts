@@ -10,9 +10,9 @@ export default class TestLevel extends Level {
   ];
   brushes = [
     ['EmptyCellBrush', -1],
-    ['TestCellBrush', 0],
+    ['WallCellBrush', 0],
     ['RotateCellClockwiseBrush', 2],
-    ['RotateCellAntiClockwise', 2],
+    ['RotateCellAntiClockwiseBrush', 2],
   ];
   entities = [[Placeful, []]];
 }

@@ -3,7 +3,8 @@ import UI from '../UI';
 import { Vec2 } from '../Math';
 import Button from './Components/Button';
 import { eState } from './Component';
-import { brushesById } from '../Cells/Brushes';
+import brushes, { brushesById } from '../Cells/Brushes';
+import ButtonWithAmount from './Components/ButtonWithAmount';
 
 const OFFSET_X = 25;
 const OFFSET_Y = 25;
@@ -14,18 +15,27 @@ const BTN_GAP = 5;
 export default class TileSelector extends Screen {
   position: Vec2;
   size: Vec2;
-  components: Array<Button>;
+  components: Array<ButtonWithAmount>;
 
   constructor(ui: UI) {
     super(ui);
 
+    this.ui.game.on('level_loaded', () => this.updateBrushes());
+    this.ui.game.on('brush_placed', () => this.updateBrushAmount());
+  }
+
+  updateBrushes() {
     let btnyposition = OFFSET_Y + BTN_GAP;
 
-    for (const brushid in brushesById) {
-      const brush = brushesById[brushid];
+    for (const brushdef of this.ui.game.brushes) {
+      const [ brushname, amount ] = brushdef;
+      const brush = brushes[brushname];
 
-      this.addBrushBtn(btnyposition, brush.brushName, brush.text);
-      
+      const btn = this.addBrushBtn(btnyposition, brush.brushName, brush.text);
+
+      if (amount !== -1) btn.amount = String(amount);
+      btn.link = brushdef; // FIXME: It looks like a crutch
+
       btnyposition += BTN_SIZE + BTN_GAP;
     }
 
@@ -41,31 +51,41 @@ export default class TileSelector extends Screen {
   }
 
   private updateActiveButton(): void {
-    this.components.forEach(
+    this.components
+      .filter(component => component instanceof Button)
+      .forEach(
       btn => btn.setState(btn.id === this.ui.game.board.brush ? eState.active : eState.normal);
   }
 
-  private addBrushBtn(
-    y: number,
+  private updateBrushAmount(): void {
+    this.components.forEach(component => {
+      if (component.link[1] !== -1) component.amount = String(component.link[1]);
+    })
+  }
+
+  private addBrushBtn(y: number,
     brushName: string,
     text: string = '',
-  ): void {
+  ): ButtonWithAmount {
     const brushbtn = this.generateButton(y);
     brushbtn.params.text = text;
     brushbtn.id = brushName;
     brushbtn.on('click', () => this.onBtnClick(brushName));
     this.components.push(brushbtn);
+    return brushbtn;
   }
 
-  private generateButton(y: number): Button {
+  private generateButton(y: number): ButtonWithAmount {
     const { board } = this.ui.game;
 
     const btnxposition = board.right + OFFSET_X + BTN_OFFSET;
 
-    return new Button(
+    return new ButtonWithAmount(
       this.ui,
       new Vec2(btnxposition, y),
       new Vec2(BTN_SIZE, BTN_SIZE),
+      undefined,
+      undefined
     );
   }
 

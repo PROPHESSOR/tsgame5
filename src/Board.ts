@@ -53,6 +53,7 @@ export default class Board extends Entity {
       throw new Error(`Unknown brush ${brushName}`);
     this.brush = brushName;
     console.log(`Brush changed to`, brushName);
+    this.game.emit('brush_changed');
   }
 
   todoSpawnCells() {
@@ -77,6 +78,11 @@ export default class Board extends Entity {
       this.game,
       this.getCellPositionByCellIndex(idx),
     );
+    this.game.emit('brush_placed', {
+      index: idx,
+      brushName: `${this.brush}Brush`,
+      cellName: this.brush,
+    });
     return true;
   }
 

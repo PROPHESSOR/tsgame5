@@ -21,7 +21,7 @@ export const defaultTextParams: iTextParams = {
 
 Object.freeze(defaultTextParams);
 
-export default class Button extends Component {
+export default class Label extends Component {
   params: iTextParams;
 
   constructor(

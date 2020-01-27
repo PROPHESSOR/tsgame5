@@ -67,6 +67,10 @@ export default abstract class Component extends EventEmitter
   state: eState;
   abilities: iComponentAbilities;
   id: string;
+  /**
+   * Used to store a link to any object you want to link the component
+   */
+  link: any;
 
   constructor(
     ui: UI,

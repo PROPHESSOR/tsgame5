@@ -1,4 +1,4 @@
-import { EventEmitter } from './Utils';
+import { EventEmitter, copyJSON } from './Utils';
 import { CellId, cellsById } from './Cells/Cells';
 import Game from './Game';
 import { Vec2 } from './Math';
@@ -87,7 +87,7 @@ export default abstract class Level extends aLevel {
   }
 
   private loadBrushes() {
-    this.game.brushes = [...this.brushes];
+    this.game.brushes = copyJSON(this.brushes) as Array<any>;
   }
 
   load() {
@@ -100,6 +100,8 @@ export default abstract class Level extends aLevel {
     this.loadPlayer();
 
     this.loadBrushes();
+
+    this.game.emit('level_loaded', this);
   }
 
   /**
