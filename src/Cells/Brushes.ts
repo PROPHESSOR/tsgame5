@@ -1,11 +1,11 @@
 import { EmptyCellBrush } from './EmptyCell';
-import { TestCellBrush } from './TestCell';
+import { WallCellBrush } from './WallCell';
 import { RotateCellClockwiseBrush } from './RotateCellClockwise';
 import { RotateCellAntiClockwiseBrush } from './RotateCellAntiClockwise';
 
 const brushes = {
   EmptyCellBrush,
-  TestCellBrush,
+  WallCellBrush,
   RotateCellClockwiseBrush,
   RotateCellAntiClockwiseBrush,
 };

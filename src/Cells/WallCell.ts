@@ -4,7 +4,7 @@ import Game from '../Game';
 import Cell, { iCellBrush } from '../Cell';
 import Arrow from '../Entities/Arrow';
 
-export default class TestCell extends Cell {
+export default class WallCell extends Cell {
   constructor(game: Game, position: Vec2) {
     super(
       game,
@@ -40,8 +40,8 @@ export default class TestCell extends Cell {
   }
 }
 
-export const TestCellBrush: iCellBrush = {
+export const WallCellBrush: iCellBrush = {
   text: '\\',
-  brushName: 'TestCell',
-  brushClass: TestCell,
+  brushName: 'WallCell',
+  brushClass: WallCell,
 };

@@ -22,7 +22,7 @@ export default class TileSelector extends Screen {
     this.addBrushBtn(btnyposition, 'EmptyCell');
 
     btnyposition += BTN_SIZE + BTN_GAP;
-    this.addBrushBtn(btnyposition, 'TestCell', 'x');
+    this.addBrushBtn(btnyposition, 'WallCell', 'x');
 
     btnyposition += BTN_SIZE + BTN_GAP;
     this.addBrushBtn(btnyposition, 'RotateCellClockwise', '/');
