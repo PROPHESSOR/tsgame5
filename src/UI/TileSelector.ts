@@ -3,6 +3,7 @@ import UI from '../UI';
 import { Vec2 } from '../Math';
 import Button from './Components/Button';
 import { eState } from './Component';
+import { brushesById } from '../Cells/Brushes';
 
 const OFFSET_X = 25;
 const OFFSET_Y = 25;
@@ -19,18 +20,16 @@ export default class TileSelector extends Screen {
     super(ui);
 
     let btnyposition = OFFSET_Y + BTN_GAP;
-    this.addBrushBtn(btnyposition, 'EmptyCell');
 
-    btnyposition += BTN_SIZE + BTN_GAP;
-    this.addBrushBtn(btnyposition, 'WallCell', 'x');
+    for (const brushid in brushesById) {
+      const brush = brushesById[brushid];
 
-    btnyposition += BTN_SIZE + BTN_GAP;
-    this.addBrushBtn(btnyposition, 'RotateCellClockwise', '/');
+      this.addBrushBtn(btnyposition, brush.brushName, brush.text);
+      
+      btnyposition += BTN_SIZE + BTN_GAP;
+    }
 
-    btnyposition += BTN_SIZE + BTN_GAP;
-    this.addBrushBtn(btnyposition, 'RotateCellAntiClockwise', '\\');
-
-    this.size = new Vec2(30, btnyposition + BTN_GAP);
+    this.size = new Vec2(30, btnyposition - BTN_SIZE);
 
     this.updateActiveButton();
   }
@@ -68,13 +67,6 @@ export default class TileSelector extends Screen {
       new Vec2(btnxposition, y),
       new Vec2(BTN_SIZE, BTN_SIZE),
     );
-  }
-
-  // TODO: HOW TO USE it? .next()?
-  *getNextBtnYPosition() {
-    for (let i = 0; i < 10; i++) {
-      yield OFFSET_Y + BTN_GAP * i;
-    }
   }
 
   render() {

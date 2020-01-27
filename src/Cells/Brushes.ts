@@ -3,6 +3,7 @@ import { WallCellBrush } from './WallCell';
 import { RotateCellClockwiseBrush } from './RotateCellClockwise';
 import { RotateCellAntiClockwiseBrush } from './RotateCellAntiClockwise';
 import { ToggleCellBrush } from './ToggleCell';
+import { iCellBrush } from '../Cell';
 
 const brushes = {
   EmptyCellBrush,
@@ -14,7 +15,11 @@ const brushes = {
 
 export default brushes;
 
-export const brushesById = {
+export interface iBrushesById {
+  [key: number]: iCellBrush;
+}
+
+export const brushesById: iBrushesById = {
   0: EmptyCellBrush,
   1: WallCellBrush,
   2: RotateCellClockwiseBrush,

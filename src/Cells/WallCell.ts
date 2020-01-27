@@ -41,7 +41,7 @@ export default class WallCell extends Cell {
 }
 
 export const WallCellBrush: iCellBrush = {
-  text: '\\',
+  text: 'x',
   brushName: 'WallCell',
   brushClass: WallCell,
 };

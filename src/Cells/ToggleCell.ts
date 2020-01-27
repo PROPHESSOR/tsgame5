@@ -53,7 +53,7 @@ export default abstract class ToggleCell extends Cell {
     ctx.strokeStyle = 'red';
     ctx.strokeRect(coords.x, coords.y, cellsize.x, cellsize.y);
 
-    ctx.strokeStyle = 'gray';
+    ctx.strokeStyle = 'green';
     ctx.beginPath();
     ctx.moveTo(coords.x + cellsize.x, coords.y);
     ctx.lineTo(coords.x, coords.y + cellsize.y);
@@ -68,6 +68,6 @@ export default abstract class ToggleCell extends Cell {
 
 export const ToggleCellBrush: iCellBrush = {
   text: 'o',
-  brushName: 'RotateCellClockwise',
+  brushName: 'ToggleCell',
   brushClass: ToggleCell,
 };
