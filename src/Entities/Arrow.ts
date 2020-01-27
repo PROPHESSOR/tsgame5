@@ -3,8 +3,8 @@ import { random } from '../Utils';
 
 import Game from '../Game';
 import Entity, { Direction } from '../Entity';
-import RotateCell from '../Cells/RotateCell';
 import Box from '../Box';
+import EmptyCell from '../Cells/EmptyCell';
 
 const ARROW_SPEED: number = 2;
 const ARROW_HITBOX: number = 6;
@@ -126,13 +126,10 @@ export default class Arrow extends Entity {
         hit = true;
 
       if (hit) {
-        if (cell instanceof RotateCell) {
+        if (!(cell instanceof EmptyCell)) {
           console.log(`Process the arrow with`, cell);
           cell.processArrow(this);
           this.updateHitbox();
-        } else {
-          console.log(`Collision with`, cell);
-          return this.destroy();
         }
       }
     }

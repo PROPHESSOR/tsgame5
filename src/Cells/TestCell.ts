@@ -2,6 +2,7 @@ import { Vec2 } from '../Math';
 
 import Game from '../Game';
 import Cell, { iCellBrush } from '../Cell';
+import Arrow from '../Entities/Arrow';
 
 export default class TestCell extends Cell {
   constructor(game: Game, position: Vec2) {
@@ -11,6 +12,10 @@ export default class TestCell extends Cell {
       new Vec2(1, 1),
       Cell.generateCellBox(game.board, position),
     );
+  }
+
+  processArrow(arrow: Arrow): void {
+    arrow.destroy();
   }
 
   render() {
