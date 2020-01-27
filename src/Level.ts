@@ -10,7 +10,7 @@ import Board from './Board';
  */
 abstract class aLevel extends EventEmitter {
   abstract load();
-  abstract restart();
+  abstract respawn();
 }
 
 export default abstract class Level extends aLevel {
@@ -106,8 +106,10 @@ export default abstract class Level extends aLevel {
    * On Arrow destroy
    * Respawns all entities and destroyable cells
    */
-  restart() {
+  respawn() {
     if (this.game.entities.length !== this.entities.length)
       this.loadEntities();
+
+    this.game.board.cells.forEach(cell => cell.resetActivated());
   }
 }

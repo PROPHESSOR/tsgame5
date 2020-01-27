@@ -79,7 +79,7 @@ export default class Game {
     if (!this.level)
       throw new Error('[Game::respawn]: No level is loaded');
 
-    this.level.restart();
+    this.level.respawn();
   }
 
   /**

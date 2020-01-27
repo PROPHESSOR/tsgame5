@@ -4,14 +4,9 @@ import Game from '../Game';
 import Arrow from '../Entities/Arrow';
 import Box from '../Box';
 
-export enum RotateDirection {
-  CLOCKWISE /* \ */,
-  ANTICLOCKWISE /* / */,
-}
+const HITBOX_SIZE = 64;
 
-const HITBOX_SIZE = 32;
-
-function generateRotateCellHitbox(cellHitbox: Box) {
+function generateToggleCellHitbox(cellHitbox: Box) {
   return new Box(
     cellHitbox.topleft.plus(HITBOX_SIZE / 2),
     cellHitbox.size.minus(HITBOX_SIZE),
@@ -37,8 +32,9 @@ export default abstract class ToggleCell extends Cell {
       game,
       position,
       new Vec2(1, 1),
-      generateRotateCellHitbox(Cell.generateCellBox(game.board, position)),
+      generateToggleCellHitbox(Cell.generateCellBox(game.board, position)),
     );
+    this.state = false;
   }
 
   tick() {
@@ -53,15 +49,21 @@ export default abstract class ToggleCell extends Cell {
     ctx.strokeStyle = 'red';
     ctx.strokeRect(coords.x, coords.y, cellsize.x, cellsize.y);
 
-    ctx.strokeStyle = 'green';
+    ctx.fillStyle = this.state ? 'green' : 'red';
+    // return;
     ctx.beginPath();
-    ctx.moveTo(coords.x + cellsize.x, coords.y);
-    ctx.lineTo(coords.x, coords.y + cellsize.y);
-    ctx.stroke();
+    ctx.arc(
+      coords.x + cellsize.x / 2,
+      coords.y + cellsize.y / 2,
+      cellsize.x / 4,
+      0,
+      360,
+    );
+    ctx.fill();
   }
 
   processArrow(arrow: Arrow): void {
-    // TODO:
+    if (!this.state) this.state = true;
     console.log(`Hit with ToggleCell`, this);
   }
 }

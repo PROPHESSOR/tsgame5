@@ -26,6 +26,10 @@ export abstract class HitboxEntity extends Entity {
 export default abstract class Cell extends HitboxEntity {
   boardposition: Vec2;
   boardsize: Vec2;
+  /**
+   * Activated counter. Reseted on level respawn.
+   */
+  activated: number;
 
   /**
    *
@@ -44,6 +48,7 @@ export default abstract class Cell extends HitboxEntity {
     );
     this.boardposition = position;
     this.boardsize = size;
+    this.activated = 0;
   }
 
   get coords(): Vec2 {
@@ -59,6 +64,10 @@ export default abstract class Cell extends HitboxEntity {
 
   processArrow(arrow: Arrow): void {
     // console.warn(`Cell::processArrow(): Nothing to process`);
+  }
+
+  resetActivated(): void {
+    this.activated = 0;
   }
 
   /**
