@@ -4,7 +4,7 @@ import Game from '../Game';
 import Arrow from '../Entities/Arrow';
 import Box from '../Box';
 
-const HITBOX_SIZE = 64;
+const HITBOX_SIZE = 87;
 
 function generateToggleCellHitbox(cellHitbox: Box) {
   return new Box(
@@ -62,9 +62,14 @@ export default abstract class ToggleCell extends Cell {
     ctx.fill();
   }
 
+  resetActivated() {
+    this.state = false;
+  }
+
   processArrow(arrow: Arrow): void {
+    arrow.position = Vec2.from(this.position);
     if (!this.state) this.state = true;
-    console.log(`Hit with ToggleCell`, this);
+    else arrow.destroy();
   }
 }
 
