@@ -127,7 +127,7 @@ export default class Arrow extends Entity {
 
       if (hit) {
         if (!(cell instanceof EmptyCell)) {
-          console.log(`Process the arrow with`, cell);
+          // console.log(`Process the arrow with`, cell);
           cell.processArrow(this);
           this.updateHitbox();
         }
