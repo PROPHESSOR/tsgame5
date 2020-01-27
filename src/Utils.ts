@@ -70,3 +70,7 @@ export function generateRotationMatrix2D(deg: number): Matrix2 {
     ...[Math.sin(rad), Math.cos(rad)],
   ]);
 }
+
+export function copyJSON(object: Object): Object {
+  return JSON.parse(JSON.stringify(object));
+}
