@@ -112,6 +112,11 @@ export default abstract class Level extends aLevel {
     return this;
   }
 
+  unload() {
+    // TODO: Game stop
+    // TODO: Unload board, entities, etc
+  }
+
   /**
    * On Arrow destroy
    * Respawns all entities and destroyable cells
