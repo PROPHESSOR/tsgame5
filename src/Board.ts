@@ -78,13 +78,19 @@ export default class Board extends Entity {
 
     if (cell instanceof EmptyCell) {
       // Place
+      const brushName = `${this.brush}Brush`;
+      // Check for available brushes
+      const [[, amount]] = this.game.brushes.filter(
+        brush => brush[0] === brushName,
+      );
+      if (amount < 1) return true;
       this.cells[idx] = new Cells[this.brush](
         this.game,
         this.getCellPositionByCellIndex(idx),
       );
       this.game.emit('cell_placed', {
+        brushName,
         index: idx,
-        brushName: `${this.brush}Brush`,
         cellName: this.brush,
       });
     } else if (!cell.freezed) {
