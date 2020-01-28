@@ -44,6 +44,8 @@ export default abstract class Level extends aLevel {
       throw new Error('Level cells map must be greater than 2x2');
 
     // TODO: Validate player position
+
+    return this;
   }
 
   private static checkForSquareNumber(number: number): boolean {
@@ -106,6 +108,8 @@ export default abstract class Level extends aLevel {
     this.loadBrushes();
 
     this.game.emit('level_loaded', { level: this });
+
+    return this;
   }
 
   /**

@@ -9,6 +9,7 @@ import UI from './UI';
 import Level from './Level';
 import Arrow from './Entities/Arrow';
 import { EventEmitter } from './Utils';
+import ToggleCell from './Cells/ToggleCell';
 
 const BOARD_OFFSET: number = 20;
 const BOARD_PLAYER_AREA: number = 50;
@@ -137,11 +138,25 @@ export default class Game extends EventEmitter {
       this,
       new Vec2(this.window_size.x, board.top + cellY * board.cellsize.y),
     );
-    this.arrow.on('destroy', () => {
-      this.arrow = null;
-      this.respawn();
-    });
+    this.arrow.on('destroy', () => this.onArrowDestroy());
     this.emit('spawnArrow');
+  }
+
+  private onArrowDestroy() {
+    this.arrow = null;
+
+    const all = this.board.cells.filter(
+      cell => cell instanceof ToggleCell,
+    );
+    const toggled = all.filter((cell: ToggleCell) => cell.state);
+
+    if (toggled.length === all.length) {
+      // TODO: Check for killed entities
+      // Win
+      this.emit('game_nextlevel');
+    } else {
+      this.respawn();
+    }
   }
 
   onClick(position: Vec2): boolean {
