@@ -3,7 +3,7 @@ import UI from '../UI';
 import { Vec2 } from '../Math';
 import Button from './Components/Button';
 import { eState } from './Component';
-import brushes, { brushesById } from '../Cells/Brushes';
+import brushes from '../Cells/Brushes';
 import ButtonWithAmount from './Components/ButtonWithAmount';
 
 const OFFSET_X = 25;
@@ -21,17 +21,21 @@ export default class TileSelector extends Screen {
     super(ui);
 
     this.ui.game.on('level_loaded', () => this.updateBrushes());
-    this.ui.game.on('brush_placed', () => this.updateBrushAmount());
+    this.ui.game.on('brush_update', () => this.updateBrushAmount());
   }
 
   updateBrushes() {
     let btnyposition = OFFSET_Y + BTN_GAP;
 
     for (const brushdef of this.ui.game.brushes) {
-      const [ brushname, amount ] = brushdef;
+      const [brushname, amount] = brushdef;
       const brush = brushes[brushname];
 
-      const btn = this.addBrushBtn(btnyposition, brush.brushName, brush.text);
+      const btn = this.addBrushBtn(
+        btnyposition,
+        brush.brushName,
+        brush.text,
+      );
 
       if (amount !== -1) btn.amount = String(amount);
       btn.link = brushdef; // FIXME: It looks like a crutch
@@ -53,17 +57,24 @@ export default class TileSelector extends Screen {
   private updateActiveButton(): void {
     this.components
       .filter(component => component instanceof Button)
-      .forEach(
-      btn => btn.setState(btn.id === this.ui.game.board.brush ? eState.active : eState.normal);
+      .forEach(btn =>
+        btn.setState(
+          btn.id === this.ui.game.board.brush
+            ? eState.active
+            : eState.normal,
+        ),
+      );
   }
 
   private updateBrushAmount(): void {
     this.components.forEach(component => {
-      if (component.link[1] !== -1) component.amount = String(component.link[1]);
-    })
+      if (component.link[1] !== -1)
+        component.amount = String(component.link[1]);
+    });
   }
 
-  private addBrushBtn(y: number,
+  private addBrushBtn(
+    y: number,
     brushName: string,
     text: string = '',
   ): ButtonWithAmount {
@@ -85,7 +96,7 @@ export default class TileSelector extends Screen {
       new Vec2(btnxposition, y),
       new Vec2(BTN_SIZE, BTN_SIZE),
       undefined,
-      undefined
+      undefined,
     );
   }
 

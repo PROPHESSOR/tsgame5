@@ -96,7 +96,7 @@ export default class Board extends Entity {
       this.game.emit('cell_removed', {
         index: idx,
         cellName: cell.name,
-        brushName: `${cell.name}Bruh`,
+        brushName: `${cell.name}Brush`,
       });
     }
     return true;

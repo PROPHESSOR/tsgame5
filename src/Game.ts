@@ -79,11 +79,20 @@ export default class Game extends EventEmitter {
       this.onClick(new Vec2(event.offsetX, event.offsetY)),
     );
 
-    this.on('brush_placed', ({ index, brushName }) => {
+    this.on('cell_placed', ({ brushName }) => {
       const [placedBrush] = this.brushes.filter(
         brushdef => brushdef[0] === brushName,
       );
       if (placedBrush[1] !== -1 && placedBrush[1] !== 0) placedBrush[1]--;
+      this.emit('brush_update');
+    });
+
+    this.on('cell_removed', ({ brushName }) => {
+      const [placedBrush] = this.brushes.filter(
+        brushdef => brushdef[0] === brushName,
+      );
+      placedBrush[1]++;
+      this.emit('brush_update');
     });
   }
 
