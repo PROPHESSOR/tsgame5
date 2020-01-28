@@ -31,6 +31,7 @@ export default abstract class Cell extends HitboxEntity {
    */
   activated: number;
   name: string;
+  freezed: boolean = false;
 
   /**
    *
