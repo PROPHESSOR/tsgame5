@@ -42,7 +42,7 @@ export default class Board extends Entity {
     );
 
     this.cells = [];
-    this.brush = 'EmptyCell';
+    this.brush = null;
   }
 
   changeBrush(brushName: string) {
@@ -62,6 +62,7 @@ export default class Board extends Entity {
     const cell = this.cells[idx];
 
     if (cell instanceof EmptyCell) {
+      if (!this.brush) return true;
       // Place
       const brushName = `${this.brush}Brush`;
       // Check for available brushes
