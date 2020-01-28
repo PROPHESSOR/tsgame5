@@ -25,7 +25,7 @@ export default abstract class ToggleCell extends Cell {
    * false - normal
    * true - active
    */
-  state: boolean;
+  _state: boolean;
 
   name = 'ToggleCell';
 
@@ -37,6 +37,15 @@ export default abstract class ToggleCell extends Cell {
       generateToggleCellHitbox(Cell.generateCellBox(game.board, position)),
     );
     this.state = false;
+  }
+
+  get state() {
+    return this._state;
+  }
+
+  set state(state) {
+    this._state = state;
+    this.game.emit('togglecell_toggle', { state });
   }
 
   tick() {
