@@ -5,13 +5,13 @@ export default class TestLevel extends Level {
   name = 'Test Lvl.';
   playerPosition = 1;
   cells = [
-    ...[0, 0, 1], //
+    ...[0, 3, 1], //
     ...[1, 4, 2], //
     ...[1, 0, 0], //
   ];
   brushes = [
     ['RotateCellClockwiseBrush', 1],
-    ['RotateCellAntiClockwiseBrush', 2],
+    ['RotateCellAntiClockwiseBrush', 1],
   ];
   entities = [[Placeful, []]];
 }
