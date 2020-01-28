@@ -3,6 +3,8 @@ import { CellId, cellsById } from './Cells/Cells';
 import Game from './Game';
 import { Vec2 } from './Math';
 import Board from './Board';
+import Cell from './Cell';
+import EmptyCell from './Cells/EmptyCell';
 
 /**
  * @event restart TODO:
@@ -57,14 +59,15 @@ export default abstract class Level extends aLevel {
     });
 
     this.game.board.cells = [];
-    this.cells.forEach((cellId, index) =>
-      this.game.board.cells.push(
-        new cellsById[cellId](
-          this.game,
-          this.game.board.getCellPositionByCellIndex(index),
-        ),
-      ),
-    );
+    this.cells.forEach((cellId, index) => {
+      const cell: Cell = new cellsById[cellId](
+        this.game,
+        this.game.board.getCellPositionByCellIndex(index),
+      );
+
+      if (!(cell instanceof EmptyCell)) cell.freezed = true;
+      this.game.board.cells.push(cell);
+    });
   }
 
   private loadEntities() {
