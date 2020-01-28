@@ -33,5 +33,7 @@ export default abstract class Screen extends EventEmitter {
     return false;
   }
 
-  abstract render();
+  render() {
+    this.components.reverse().forEach(component => component.render());
+  }
 }

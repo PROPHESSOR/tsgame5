@@ -27,6 +27,7 @@ export default abstract class Level extends aLevel {
    * Player Y position in cells
    */
   abstract playerPosition: number;
+  abstract name: string;
 
   /**
    * Don't forget to call super.init()!
@@ -104,7 +105,7 @@ export default abstract class Level extends aLevel {
 
     this.loadBrushes();
 
-    this.game.emit('level_loaded', this);
+    this.game.emit('level_loaded', { level: this });
   }
 
   /**

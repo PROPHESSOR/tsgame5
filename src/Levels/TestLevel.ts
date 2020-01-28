@@ -2,6 +2,7 @@ import Level from '../Level';
 import Placeful from '../Entities/Placeful';
 
 export default class TestLevel extends Level {
+  name = 'Test Lvl.';
   playerPosition = 1;
   cells = [
     ...[0, 0, 1], //

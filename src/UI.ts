@@ -2,9 +2,11 @@ import { Vec2 } from './Math';
 import Screen from './Screen';
 import TileSelector from './UI/TileSelector';
 import Game from './Game';
+import LevelInfo from './UI/LevelInfo';
 
 export const Screens = {
   TileSelector: TileSelector,
+  LevelInfo: LevelInfo,
 };
 
 export default class UI {
@@ -21,6 +23,7 @@ export default class UI {
     this.size = size;
     this.layers = [];
     this.layers.push(new TileSelector(this)); // FIXME:
+    this.layers.push(new LevelInfo(this)); // FIXME:
 
     window.addEventListener('mousemove', event =>
       this.onMouseMove(new Vec2(event.offsetX, event.offsetY)),
