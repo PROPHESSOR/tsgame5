@@ -46,7 +46,6 @@ export default class Button extends Component {
   ) {
     super(ui, position, size, new Box(position, size), params, theme);
     this.abilities.hover = true;
-    this.on('hover', () => console.log('btn.on hover'));
   }
 
   render() {
