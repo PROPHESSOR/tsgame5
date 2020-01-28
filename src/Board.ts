@@ -87,8 +87,7 @@ export default class Board extends Entity {
         brushName: `${this.brush}Brush`,
         cellName: this.brush,
       });
-    } else if (true) {
-      // TODO: If available to remove
+    } else if (!cell.freezed) {
       // Remove
       this.cells[idx] = new EmptyCell(
         this.game,
