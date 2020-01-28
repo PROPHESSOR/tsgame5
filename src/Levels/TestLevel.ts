@@ -9,8 +9,6 @@ export default class TestLevel extends Level {
     ...[1, 3, 2], //
   ];
   brushes = [
-    ['EmptyCellBrush', -1],
-    ['WallCellBrush', 0],
     ['RotateCellClockwiseBrush', 2],
     ['RotateCellAntiClockwiseBrush', 2],
   ];
