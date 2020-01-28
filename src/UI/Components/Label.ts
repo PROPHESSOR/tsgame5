@@ -4,7 +4,6 @@ import Component, {
 } from '../Component';
 import UI from '../../UI';
 import { Vec2 } from '../../Math';
-import Box from '../../Box';
 import { iThemeComponentProps } from '../Themes/iTheme';
 import DefaultTheme from '../Themes/DefaultTheme';
 

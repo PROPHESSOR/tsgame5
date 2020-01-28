@@ -47,6 +47,8 @@ export default class UI {
   }
 
   render() {
+    this.ctx.clearRect(0, 0, this.size.x, this.size.y);
+
     this.layers.forEach(layer => layer.render());
   }
 }
