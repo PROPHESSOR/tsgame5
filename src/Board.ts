@@ -5,7 +5,6 @@ import Entity from './Entity';
 import Cell from './Cell';
 import EmptyCell from './Cells/EmptyCell';
 import Cells from './Cells/Cells';
-import RotateCellClockwise from './Cells/RotateCellClockwise';
 import Box from './Box';
 
 interface iBoardConstructor {
@@ -44,8 +43,6 @@ export default class Board extends Entity {
 
     this.cells = [];
     this.brush = 'EmptyCell';
-
-    // this.todoSpawnCells();
   }
 
   changeBrush(brushName: string) {
@@ -54,18 +51,6 @@ export default class Board extends Entity {
     this.brush = brushName;
     console.log(`Brush changed to`, brushName);
     this.game.emit('brush_changed');
-  }
-
-  todoSpawnCells() {
-    for (let col = 0; col < this.boardsize.x; col++) {
-      for (let row = 0; row < this.boardsize.y; row++) {
-        this.cells.push(new EmptyCell(this.game, new Vec2(row, col)));
-      }
-    }
-
-    this.cells[11] = new RotateCellClockwise(this.game, new Vec2(1, 1));
-
-    this.cells[31] = new RotateCellClockwise(this.game, new Vec2(1, 3));
   }
 
   onClick(position: Vec2): boolean {
@@ -130,17 +115,6 @@ export default class Board extends Entity {
   }
 
   render(): void {
-    // this.ctx.strokeStyle = 'gray';
-    // for (let x = 0; x < this.boardsize.x; x++) {
-    //   for (let y = 0; y < this.boardsize.y; y++) {
-    //     this.ctx.strokeRect(
-    //       this.left + x * this.cellsize.x,
-    //       this.top + y * this.cellsize.y,
-    //       this.cellsize.x,
-    //       this.cellsize.y,
-    //     );
-    //   }
-    // }
     this.cells.forEach(cell => {
       cell.render();
     });
