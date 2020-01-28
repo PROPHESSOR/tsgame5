@@ -20,8 +20,8 @@ const BOARD_PLAYER_AREA: number = 50;
  * @event spawnArrow
  * @event level_loaded Level
  * @event brush_changed
- * @event brush_placed { index: number, brushName: string, TODO: cellName: string }
- * TODO: @event brush_removed { index: number, brushName: string, cellName: string }
+ * @event cell_placed { index: number, brushName: string, TODO: cellName: string }
+ * @event cell_removed { index: number, brushName: string, cellName: string }
  */
 
 export default class Game extends EventEmitter {

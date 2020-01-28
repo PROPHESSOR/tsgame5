@@ -27,6 +27,8 @@ export default abstract class ToggleCell extends Cell {
    */
   state: boolean;
 
+  name = 'ToggleCell';
+
   constructor(game: Game, position: Vec2) {
     super(
       game,

@@ -5,6 +5,8 @@ import Cell, { iCellBrush } from '../Cell';
 import Arrow from '../Entities/Arrow';
 
 export default class WallCell extends Cell {
+  name = 'WallCell';
+
   constructor(game: Game, position: Vec2) {
     super(
       game,

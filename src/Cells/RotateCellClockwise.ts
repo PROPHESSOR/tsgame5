@@ -7,6 +7,8 @@ import { iCellBrush } from '../Cell';
 export default class RotateCellClockwise extends RotateCell {
   protected rotateDirection: RotateDirection = RotateDirection.CLOCKWISE;
 
+  name = 'RotateCellClockwise';
+
   processArrow(arrow: Arrow) {
     switch (arrow.direction) {
       case Direction.UP:

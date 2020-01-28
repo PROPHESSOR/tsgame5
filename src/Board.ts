@@ -74,15 +74,32 @@ export default class Board extends Entity {
     if (!hitbox.checkInside(position)) return false;
 
     const idx = this.getCellIndexByScreenCoords(position);
-    this.cells[idx] = new Cells[this.brush](
-      this.game,
-      this.getCellPositionByCellIndex(idx),
-    );
-    this.game.emit('brush_placed', {
-      index: idx,
-      brushName: `${this.brush}Brush`,
-      cellName: this.brush,
-    });
+    const cell = this.cells[idx];
+
+    if (cell instanceof EmptyCell) {
+      // Place
+      this.cells[idx] = new Cells[this.brush](
+        this.game,
+        this.getCellPositionByCellIndex(idx),
+      );
+      this.game.emit('cell_placed', {
+        index: idx,
+        brushName: `${this.brush}Brush`,
+        cellName: this.brush,
+      });
+    } else if (true) {
+      // TODO: If available to remove
+      // Remove
+      this.cells[idx] = new EmptyCell(
+        this.game,
+        this.getCellPositionByCellIndex(idx),
+      );
+      this.game.emit('cell_removed', {
+        index: idx,
+        cellName: cell.name,
+        brushName: `${cell.name}Bruh`,
+      });
+    }
     return true;
   }
 

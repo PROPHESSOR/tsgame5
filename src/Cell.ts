@@ -30,6 +30,7 @@ export default abstract class Cell extends HitboxEntity {
    * Activated counter. Reseted on level respawn.
    */
   activated: number;
+  name: string;
 
   /**
    *

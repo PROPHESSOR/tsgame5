@@ -1,0 +1,3 @@
+- [ ] BuffCell
+- [ ] BombCell
+- [ ] RotorCell

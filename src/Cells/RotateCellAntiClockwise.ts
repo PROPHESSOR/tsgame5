@@ -8,6 +8,8 @@ export default class RotateCellAntiClockwise extends RotateCell {
   protected rotateDirection: RotateDirection =
     RotateDirection.ANTICLOCKWISE;
 
+  name = 'RotateCellAntiClockwise';
+
   processArrow(arrow: Arrow) {
     switch (arrow.direction) {
       case Direction.UP:
