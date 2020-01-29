@@ -72,6 +72,8 @@ export default abstract class Cell extends HitboxEntity {
     this.activated = 0;
   }
 
+  tick() {}
+
   render() {
     const { ctx, board } = this.game;
     const { coords } = this;

@@ -35,10 +35,6 @@ export default class WallCell extends Cell {
     ctx.lineTo(coords.x, coords.y + cellsize.y);
     ctx.stroke();
   }
-
-  tick() {
-    // TODO:
-  }
 }
 
 export const WallCellBrush: iCellBrush = {

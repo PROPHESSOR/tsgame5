@@ -50,10 +50,6 @@ export default abstract class ToggleCell extends Cell {
     this.game.emit('togglecell_toggle', { state });
   }
 
-  tick() {
-    // TODO:
-  }
-
   render() {
     super.render();
 

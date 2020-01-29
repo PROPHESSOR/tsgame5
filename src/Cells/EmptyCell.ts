@@ -9,10 +9,6 @@ export default class EmptyCell extends Cell {
   constructor(game: Game, position: Vec2) {
     super(game, position, new Vec2(1, 1), null);
   }
-
-  tick() {
-    // TODO:
-  }
 }
 
 export const EmptyCellBrush: iCellBrush = {

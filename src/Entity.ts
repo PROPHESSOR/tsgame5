@@ -2,7 +2,6 @@ import Game from './Game';
 
 import { Vec2 } from './Math';
 import { EventEmitter, random } from './Utils';
-import Board from './Board';
 import Box from './Box';
 
 export enum Direction {

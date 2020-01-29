@@ -35,10 +35,6 @@ export default abstract class RotateCell extends Cell {
     );
   }
 
-  tick() {
-    // TODO:
-  }
-
   render() {
     super.render();
 
