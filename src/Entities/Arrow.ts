@@ -21,7 +21,7 @@ export default class Arrow extends Entity {
     this.direction = Direction.LEFT;
     this.scale = 10;
     this.updateHitbox();
-    this.arrowSpeed = game.board.cellsize.x / 32;
+    this.arrowSpeed = game.board.cellsize.x / 32; // FIXME: May cause a problem when used with a big boards
   }
 
   destroy(): void {
