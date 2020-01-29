@@ -6,7 +6,6 @@ import Entity, { Direction } from '../Entity';
 import Box from '../Box';
 import EmptyCell from '../Cells/EmptyCell';
 
-const ARROW_SPEED: number = 2;
 const ARROW_HITBOX: number = 6;
 
 export default class Arrow extends Entity {
@@ -14,6 +13,7 @@ export default class Arrow extends Entity {
   protected scale: number = 10; // Number of pixels to squeeze. scale+ -> height-
   direction: Direction = Direction.LEFT;
   hitbox: Box;
+  private arrowSpeed: number = 2;
 
   constructor(game: Game, position: Vec2 = new Vec2()) {
     super(game, position, game.board.cellsize.map(val => val - 2)); // new Vec2(50, 15)
@@ -21,6 +21,7 @@ export default class Arrow extends Entity {
     this.direction = Direction.LEFT;
     this.scale = 10;
     this.updateHitbox();
+    this.arrowSpeed = game.board.cellsize.x / 32;
   }
 
   destroy(): void {
@@ -79,16 +80,16 @@ export default class Arrow extends Entity {
   tick() {
     switch (this.direction) {
       case Direction.UP:
-        this.position.y -= ARROW_SPEED;
+        this.position.y -= this.arrowSpeed;
         break;
       case Direction.DOWN:
-        this.position.y += ARROW_SPEED;
+        this.position.y += this.arrowSpeed;
         break;
       case Direction.LEFT:
-        this.position.x -= ARROW_SPEED;
+        this.position.x -= this.arrowSpeed;
         break;
       case Direction.RIGHT:
-        this.position.x += ARROW_SPEED;
+        this.position.x += this.arrowSpeed;
         break;
       default:
         throw new Error(`Unknown direction ${this.direction}`);
