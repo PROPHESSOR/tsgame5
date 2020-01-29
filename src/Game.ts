@@ -103,7 +103,8 @@ export default class Game extends EventEmitter {
     if (this.isrunning) return;
     this.isrunning = true;
     // setInterval(() => this.tick(), 10);
-    requestAnimationFrame(() => this.tick());
+    this.tick();
+    this.render();
   }
 
   stop() {
@@ -174,17 +175,16 @@ export default class Game extends EventEmitter {
   }
 
   tick() {
-    if (this.isrunning) requestAnimationFrame(() => this.tick());
+    if (this.isrunning) setTimeout(() => this.tick(), 17); // 1000 / 60
     this.tickno++;
     this.entities.forEach(entity => entity.tick(this.tickno));
     this.player.tick();
     if (this.arrow) this.arrow.tick();
-    this.ctx.save();
-    this.render();
-    this.ctx.restore();
   }
 
   render() {
+    if (this.isrunning) requestAnimationFrame(() => this.render());
+    this.ctx.save();
     this.ctx.fillStyle = 'black';
     this.ctx.fillRect(0, 0, this.window_size.x, this.window_size.y);
 
@@ -197,5 +197,6 @@ export default class Game extends EventEmitter {
     if (this.arrow) this.arrow.render();
 
     this.ui.render();
+    this.ctx.restore();
   }
 }
