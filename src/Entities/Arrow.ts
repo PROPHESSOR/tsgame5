@@ -152,12 +152,12 @@ export default class Arrow extends Entity {
 
     // Check for screen leaving
     if (
-      (this.direction === Direction.LEFT && this.hitbox.right < 0) ||
+      (this.direction === Direction.LEFT && this.right < 0) ||
       (this.direction === Direction.DOWN &&
-        this.hitbox.top >= this.game.board.bottom) ||
-      (this.direction === Direction.UP && this.hitbox.bottom < 0) ||
+        this.top >= this.game.board.bottom) ||
+      (this.direction === Direction.UP && this.bottom < 0) ||
       (this.direction === Direction.RIGHT &&
-        this.hitbox.left >= this.game.board.right)
+        this.left >= this.game.board.right)
     )
       return this.destroy();
   }
