@@ -2,7 +2,6 @@ import Cell from '../Cell';
 import { Vec2 } from '../Math';
 import Game from '../Game';
 import Arrow from '../Entities/Arrow';
-import { rotateCoordsAroundThePoint } from '../Utils';
 import Box from '../Box';
 
 export enum RotateDirection {
@@ -49,12 +48,11 @@ export default abstract class RotateCell extends Cell {
   }
 
   render() {
+    super.render();
+
     const { game, coords } = this;
     const { ctx, board } = game;
     const { cellsize } = board;
-
-    ctx.strokeStyle = 'red';
-    ctx.strokeRect(coords.x, coords.y, cellsize.x, cellsize.y);
 
     ctx.strokeStyle = 'gray';
     ctx.beginPath();

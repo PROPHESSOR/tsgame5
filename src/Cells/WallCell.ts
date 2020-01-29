@@ -21,12 +21,11 @@ export default class WallCell extends Cell {
   }
 
   render() {
+    super.render();
+
     const { game, coords } = this;
     const { ctx, board } = game;
     const { cellsize } = board;
-
-    ctx.strokeStyle = 'red';
-    ctx.strokeRect(coords.x, coords.y, cellsize.x, cellsize.y);
 
     ctx.strokeStyle = 'gray';
     ctx.beginPath();

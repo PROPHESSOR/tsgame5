@@ -10,15 +10,6 @@ export default class EmptyCell extends Cell {
     super(game, position, new Vec2(1, 1), null);
   }
 
-  render() {
-    const { game, coords } = this;
-    const { ctx, board } = game;
-    const { cellsize } = board;
-
-    ctx.strokeStyle = 'red';
-    ctx.strokeRect(coords.x, coords.y, cellsize.x, cellsize.y);
-  }
-
   tick() {
     // TODO:
   }

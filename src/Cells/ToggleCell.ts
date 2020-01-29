@@ -55,12 +55,11 @@ export default abstract class ToggleCell extends Cell {
   }
 
   render() {
+    super.render();
+
     const { game, coords } = this;
     const { ctx, board } = game;
     const { cellsize } = board;
-
-    ctx.strokeStyle = 'red';
-    ctx.strokeRect(coords.x, coords.y, cellsize.x, cellsize.y);
 
     ctx.fillStyle = this.state ? 'green' : 'red';
     // return;

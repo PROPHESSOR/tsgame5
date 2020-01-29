@@ -72,6 +72,15 @@ export default abstract class Cell extends HitboxEntity {
     this.activated = 0;
   }
 
+  render() {
+    const { ctx, board } = this.game;
+    const { coords } = this;
+    const { cellsize } = board;
+
+    ctx.strokeStyle = 'red';
+    ctx.strokeRect(coords.x, coords.y, cellsize.x, cellsize.y);
+  }
+
   /**
    * Draws an random color flashing rect to display this.hitbox
    */
