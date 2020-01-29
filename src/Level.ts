@@ -97,6 +97,8 @@ export default abstract class Level extends aLevel {
   }
 
   load() {
+    if (this.game.level) this.game.level.unload();
+
     this.game.level = this;
 
     this.loadMap();
@@ -114,7 +116,12 @@ export default abstract class Level extends aLevel {
 
   unload() {
     // TODO: Game stop
+    this.game.stop();
     // TODO: Unload board, entities, etc
+    this.game.board.cells = [];
+    this.game.entities = [];
+
+    this.game.emit('level_unloaded', { level: this });
   }
 
   /**

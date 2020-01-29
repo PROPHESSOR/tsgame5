@@ -21,7 +21,12 @@ export default class TileSelector extends Screen {
     super(ui);
 
     this.ui.game.on('level_loaded', () => this.updateBrushes());
+    this.ui.game.on('level_unloaded', () => this.removeBrushes());
     this.ui.game.on('brush_update', () => this.updateBrushAmount());
+  }
+
+  private removeBrushes() {
+    this.components = [];
   }
 
   updateBrushes() {

@@ -38,6 +38,7 @@ export default class Game extends EventEmitter {
   brushes: [string, number][];
   level: Level = null;
   arrow: Arrow;
+  private isrunning: boolean = false;
 
   constructor({
     window_size = new Vec2(500 - BOARD_PLAYER_AREA, 400) as Vec2,
@@ -99,8 +100,15 @@ export default class Game extends EventEmitter {
   }
 
   start() {
+    if (this.isrunning) return;
+    this.isrunning = true;
     // setInterval(() => this.tick(), 10);
     requestAnimationFrame(() => this.tick());
+  }
+
+  stop() {
+    if (!this.isrunning) return;
+    this.isrunning = false;
   }
 
   /**
@@ -166,7 +174,7 @@ export default class Game extends EventEmitter {
   }
 
   tick() {
-    requestAnimationFrame(() => this.tick());
+    if (this.isrunning) requestAnimationFrame(() => this.tick());
     this.tickno++;
     this.entities.forEach(entity => entity.tick(this.tickno));
     this.player.tick();

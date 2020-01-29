@@ -15,6 +15,7 @@ function loadLevel(game) {
   // level.name = String(Math.random());
   level.init();
   level.load();
+  game.start();
 }
 
 function main() {
