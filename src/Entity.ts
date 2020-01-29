@@ -85,6 +85,10 @@ export default abstract class Entity extends EventEmitter
     return new Vec2(this.left + this.size.x / 2, this.top);
   }
 
+  get center(): Vec2 {
+    return this.topleft.plus(this.size.divide(2));
+  }
+
   checkInside(point: Vec2): boolean {
     return (
       point.x >= this.left &&

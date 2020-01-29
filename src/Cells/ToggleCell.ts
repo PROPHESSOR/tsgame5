@@ -3,13 +3,12 @@ import { Vec2 } from '../Math';
 import Game from '../Game';
 import Arrow from '../Entities/Arrow';
 import Box from '../Box';
+import Board from '../Board';
 
-const HITBOX_SIZE = 87;
-
-function generateToggleCellHitbox(cellHitbox: Box) {
+function generateToggleCellHitbox(board: Board, cellHitbox: Box) {
   return new Box(
-    cellHitbox.topleft.plus(HITBOX_SIZE / 2),
-    cellHitbox.size.minus(HITBOX_SIZE),
+    cellHitbox.center.minus(board.cellsize.divide(4)),
+    cellHitbox.size.minus(board.cellsize.divide(2)),
   );
 }
 
@@ -34,7 +33,10 @@ export default abstract class ToggleCell extends Cell {
       game,
       position,
       new Vec2(1, 1),
-      generateToggleCellHitbox(Cell.generateCellBox(game.board, position)),
+      generateToggleCellHitbox(
+        game.board,
+        Cell.generateCellBox(game.board, position),
+      ),
     );
     this.state = false;
   }

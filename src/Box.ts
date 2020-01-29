@@ -11,6 +11,8 @@ export interface iBox extends iBoxProps {
   left: number;
   right: number;
 
+  center: Vec2;
+
   topleft: Vec2;
   topright: Vec2;
   bottomleft: Vec2;
@@ -77,6 +79,10 @@ export default class Box {
 
   get centerbottom(): Vec2 {
     return new Vec2(this.left + this.size.x / 2, this.top);
+  }
+
+  get center(): Vec2 {
+    return this.topleft.plus(this.size.divide(2));
   }
 
   checkInside(point: Vec2): boolean {
