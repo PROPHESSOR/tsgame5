@@ -35,14 +35,6 @@ export default abstract class RotateCell extends Cell {
     );
   }
 
-  private _r(coords: Vec2): Vec2 {
-    return rotateCoordsAroundThePoint(
-      coords,
-      0,
-      this.coords.plus(this.game.board.cellsize.divide(2)),
-    );
-  }
-
   tick() {
     // TODO:
   }
