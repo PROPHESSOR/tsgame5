@@ -32,6 +32,7 @@ export default abstract class Cell extends HitboxEntity {
   activated: number;
   name: string;
   freezed: boolean = false;
+  showfreeze: boolean = false;
 
   /**
    *
@@ -74,13 +75,27 @@ export default abstract class Cell extends HitboxEntity {
 
   tick() {}
 
+  private strokeRect(position: Vec2, size: Vec2) {
+    this.ctx.strokeRect(position.x, position.y, size.x, size.y);
+  }
+
   render() {
     const { ctx, board } = this.game;
     const { coords } = this;
     const { cellsize } = board;
 
     ctx.strokeStyle = 'red';
-    ctx.strokeRect(coords.x, coords.y, cellsize.x, cellsize.y);
+    this.strokeRect(coords, cellsize);
+
+    if (!this.freezed || !this.showfreeze) return;
+
+    const BORDER_OFFSET = 5;
+
+    ctx.strokeStyle = 'brown';
+    this.strokeRect(
+      coords.plus(BORDER_OFFSET),
+      cellsize.minus(BORDER_OFFSET * 2),
+    );
   }
 
   /**

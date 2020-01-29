@@ -25,6 +25,7 @@ function generateRotateCellHitbox(cellHitbox: Box) {
 
 export default abstract class RotateCell extends Cell {
   protected abstract rotateDirection: RotateDirection;
+  showfreeze = true;
 
   constructor(game: Game, position: Vec2) {
     super(
