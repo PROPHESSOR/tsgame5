@@ -6,7 +6,7 @@ import Level1 from './Levels/Level1';
 import Level2 from './Levels/Level2';
 import Level3 from './Levels/Level3';
 
-let index = 1; // 0
+let index = 0; // 0
 
 const levels = [TestLevel, Level1, Level2, Level3];
 
