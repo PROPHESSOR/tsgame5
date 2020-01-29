@@ -11,6 +11,7 @@ let index = 0; // 0
 const levels = [TestLevel, Level1, Level2, Level3];
 
 function loadLevel(game) {
+  if (index > levels.length - 1) return game.stop();
   const level = new levels[index++](game);
   // level.name = String(Math.random());
   level.init();
